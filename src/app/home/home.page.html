@@ -1,18 +1,10 @@
-<ion-header>
-  <ion-toolbar mode="ios">
-    <ion-title>
-      Lab 1
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content no-padding>
 
   <div id="color-display-container" [ngStyle]="{'background-color': colorCode}"></div>
 
   <ion-item>
-    <ion-input placeholder="Enter RGB color..."></ion-input>
-    <ion-button clear item-right>Apply RGB</ion-button>
+    <ion-input [(ngModel)]="rgbtxt" placeholder="Enter RGB color(e.g. 25;50;75)"></ion-input>
+    <ion-button clear item-right (click)="getRGB()">Apply RGB</ion-button>
   </ion-item>
   <ion-item style="margin-bottom: 5vh;">
     <ion-range (ngModelChange)="rChange($event)" [(ngModel)]="R" class="range" 
@@ -27,24 +19,24 @@
   </ion-item>
 
   <ion-item>
-    <ion-input placeholder="Enter XYZ color..."></ion-input>
-    <ion-button clear item-right>Apply XYZ</ion-button>
+    <ion-input [(ngModel)]="xyztxt" placeholder="Enter XYZ color(e.g. 0.2;0.4;0.6)"></ion-input>
+    <ion-button clear item-right (click)="getXYZ()">Apply XYZ</ion-button>
   </ion-item>
   <ion-item style="margin-bottom: 5vh;">
     <ion-range (ngModelChange)="xChange($event)" [(ngModel)]="X" class="range" 
-      pin="true" min="0" max="1" step="0.01">
+      pin="true" min="0" max="0.96" step="0.01">
     </ion-range>
     <ion-range (ngModelChange)="yChange($event)" [(ngModel)]="Y" class="range" 
       pin="true" min="0" max="1" step="0.01">
     </ion-range>
     <ion-range (ngModelChange)="zChange($event)" [(ngModel)]="Z" class="range" 
-      pin="true" min="0" max="1" step="0.01">
+      pin="true" min="0" max="0.82" step="0.01">
     </ion-range>
   </ion-item>
 
   <ion-item>
-    <ion-input placeholder="Enter HLS color..."></ion-input>
-    <ion-button clear item-right>Apply HLS</ion-button>
+    <ion-input [(ngModel)]="hlstxt" placeholder="Enter HLS color(e.g. 333;50;50)"></ion-input>
+    <ion-button clear item-right (click)="getHLS()">Apply HLS</ion-button>
   </ion-item>
   <ion-item style="margin-bottom: 5vh;">
     <ion-range (ngModelChange)="hChange($event)" [(ngModel)]="H" class="range" 
@@ -58,17 +50,18 @@
     </ion-range>
   </ion-item>
 
-  <div>
-    <div class="palette-block" style="background-color: rgb(22, 22, 22)" (click)="setColor('rgb(22, 22, 22)')"></div>
-    <div class="palette-block" style="background-color: rgb(230, 226, 9)" (click)="setColor('rgb(230, 226, 9)')"></div>
-    <div class="palette-block" style="background-color: rgb(29, 233, 121)" (click)="setColor('rgb(29, 233, 121)')"></div>
-    <div class="palette-block" style="background-color: rgb(133, 133, 133)" (click)="setColor('rgb(133, 133, 133)')"></div>
-    <div class="palette-block" style="background-color: rgb(155, 22, 22)" (click)="setColor('rgb(155, 22, 22)')"></div>
-    <div class="palette-block" style="background-color: rgb(73, 2, 189)" (click)="setColor('rgb(73, 2, 189)')"></div>
-    <div class="palette-block" style="background-color: rgb(222, 0, 222)" (click)="setColor('rgb(222, 0, 222)')"></div>
-    <div class="palette-block" style="background-color: rgb(255, 255, 255)" (click)="setColor('rgb(255, 255, 255)')"></div>
-    <div class="palette-block" style="background-color: rgb(25, 13, 233)" (click)="setColor('rgb(25, 13, 233)')"></div>
-    <div class="palette-block" style="background-color: rgb(105, 36, 151)" (click)="setColor('rgb(105, 36, 151)')"></div>
+  <div style="height: 8vh;">
+    <div class="palette-block" style="background-color: rgb(22, 22, 22)" (click)="setColorRGB('rgb(22, 22, 22)', 22, 22, 22)"></div>
+    <div class="palette-block" style="background-color: rgb(230, 226, 9)" (click)="setColorRGB('rgb(230, 226, 9)', 230, 226, 9)"></div>
+    <div class="palette-block" style="background-color: rgb(29, 233, 121)" (click)="setColorRGB('rgb(29, 233, 121)', 29, 233, 121)"></div>
+    <div class="palette-block" style="background-color: rgb(133, 133, 133)" (click)="setColorRGB('rgb(133, 133, 133)', 133, 133, 133)"></div>
+    <div class="palette-block" style="background-color: rgb(155, 22, 22)" (click)="setColorRGB('rgb(155, 22, 22)', 155, 22, 22)"></div>
+
+    <div class="palette-block" style="background-color: hsl(278, 100%, 50%)" (click)="setColorHSL('hsl(278, 100, 50)', 278, 100, 50)"></div>
+    <div class="palette-block" style="background-color: hsl(222, 99%, 99%)" (click)="setColorHSL('hsl(222, 99, 99)', 222, 99, 99)"></div>
+    <div class="palette-block" style="background-color: hsl(255, 2%, 2%)" (click)="setColorHSL('hsl(255, 2, 2)', 255, 2, 2)"></div>
+    <div class="palette-block" style="background-color: hsl(25, 22%, 22%)" (click)="setColorHSL('hsl(25, 22, 22)', 25, 22, 22)"></div>
+    <div class="palette-block" style="background-color: hsl(105, 55%, 55%)" (click)="setColorHSL('hsl(105, 55, 55)', 105, 55, 55)"></div>
   </div>
 
 </ion-content>

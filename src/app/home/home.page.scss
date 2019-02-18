@@ -1,5 +1,5 @@
 #color-display-container {
-    height: 60px;
+    height: 100px;
     width: 100vw;
 }
 
@@ -10,6 +10,9 @@
 
 .palette-block {
     display: inline-block;
-    width: 10vw;
+    width: 8.9vw;
+    margin-left: 0.9vw;
     height: 8vh;
+    border-radius: 10px;
+    border: 1px solid black;
 }

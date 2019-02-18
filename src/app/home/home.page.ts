@@ -8,6 +8,8 @@ import { ToastController } from '@ionic/angular';
 })
 export class HomePage {
 
+	toastIsShown = false;
+
 	R: number = 0;
 	G: number = 0;
 	B: number = 0;
@@ -20,77 +22,120 @@ export class HomePage {
 	L: number = 0;
 	S: number = 0;
 
+	rgbtxt: string;
+	hlstxt: string;
+	xyztxt: string;
+
 	colorCode = 'rgb(0, 0, 0)';
 
 	constructor(public toastController: ToastController) { }
 
-	//_______________________________________________________________________________
+	
 	rChange(event: number) {
 		this.R = event;
-		this.colorCode = 'rgb(' + this.R + ', ' + this.G + ', ' + this.B + ')';console.log(this.R + " " + this.G + " " + this.B + "\n" + this.X + " " + this.Y + " " + this.Z + "\n" + this.H+ " " + this.L + " " + this.S);
-		this.rgbToHsl(this.R, this.G, this.B);
-		this.RGBtoXYZ();
+		this.triggerRGB();
 	}
 
 	gChange(event: number) {
 		this.G = event;
-		this.colorCode = 'rgb(' + this.R + ', ' + this.G + ', ' + this.B + ')';console.log(this.R + " " + this.G + " " + this.B + "\n" + this.X + " " + this.Y + " " + this.Z + "\n" + this.H+ " " + this.L + " " + this.S);
-		this.rgbToHsl(this.R, this.G, this.B);
-		this.RGBtoXYZ();
+		this.triggerRGB();
 	}
 
 	bChange(event: number) {
 		this.B = event;
-		this.colorCode = 'rgb(' + this.R + ', ' + this.G + ', ' + this.B + ')';console.log(this.R + " " + this.G + " " + this.B + "\n" + this.X + " " + this.Y + " " + this.Z + "\n" + this.H+ " " + this.L + " " + this.S);
+		this.triggerRGB();
+	}
+
+	private triggerRGB() {
+		this.colorCode = 'rgb(' + this.R + ', ' + this.G + ', ' + this.B + ')';
 		this.rgbToHsl(this.R, this.G, this.B);
 		this.RGBtoXYZ();
 	}
-	//_______________________________________________________________________________
+	
 
-	//_______________________________________________________________________________
 	xChange(event: number) {
 		this.X = event;
-		this.XYZtoRGB();
-		this.rgbToHsl(this.R, this.G, this.B);
-		this.colorCode = 'rgb(' + this.R + ', ' + this.G + ', ' + this.B + ')';console.log(this.R + " " + this.G + " " + this.B + "\n" + this.X + " " + this.Y + " " + this.Z + "\n" + this.H+ " " + this.L + " " + this.S);
+		this.triggerXYZ();
 	}
 
 	yChange(event: number) {
 		this.Y = event;
-		this.XYZtoRGB();
-		this.rgbToHsl(this.R, this.G, this.B);
-		this.colorCode = 'rgb(' + this.R + ', ' + this.G + ', ' + this.B + ')';console.log(this.R + " " + this.G + " " + this.B + "\n" + this.X + " " + this.Y + " " + this.Z + "\n" + this.H+ " " + this.L + " " + this.S);
+		this.triggerXYZ();
 	}
 
 	zChange(event: number) {
 		this.Z = event;
+		this.triggerXYZ();
+	}
+
+	private triggerXYZ() {
 		this.XYZtoRGB();
 		this.rgbToHsl(this.R, this.G, this.B);
-		this.colorCode = 'rgb(' + this.R + ', ' + this.G + ', ' + this.B + ')';console.log(this.R + " " + this.G + " " + this.B + "\n" + this.X + " " + this.Y + " " + this.Z + "\n" + this.H+ " " + this.L + " " + this.S);
+		this.colorCode = 'rgb(' + this.R + ', ' + this.G + ', ' + this.B + ')';
 	}
-	//_______________________________________________________________________________
 
-	//_______________________________________________________________________________
+
 	hChange(event: number) {
 		this.H = event;
-		this.hslToRgb(this.H / 360, this.S / 100, this.L / 100);
-		this.RGBtoXYZ();
-		console.log(this.R + " " + this.G + " " + this.B + "\n" + this.X + " " + this.Y + " " + this.Z + "\n" + this.H+ " " + this.L + " " + this.S);
-		
+		this.triggerHLS();		
 	}
 
 	lChange(event: number) {
 		this.L = event;
-		this.hslToRgb(this.H / 360, this.S / 100, this.L / 100);console.log(this.R + " " + this.G + " " + this.B + "\n" + this.X + " " + this.Y + " " + this.Z + "\n" + this.H+ " " + this.L + " " + this.S);
-		this.RGBtoXYZ();
+		this.triggerHLS();
 	}
 
 	sChange(event: number) {
 		this.S = event;
-		this.hslToRgb(this.H / 360, this.S / 100, this.L / 100);console.log(this.R + " " + this.G + " " + this.B + "\n" + this.X + " " + this.Y + " " + this.Z + "\n" + this.H+ " " + this.L + " " + this.S);
+		this.triggerHLS();
+	}
+
+	private triggerHLS() {
+		this.hslToRgb(this.H / 360, this.S / 100, this.L / 100);
 		this.RGBtoXYZ();
 	}
-	//_______________________________________________________________________________
+
+
+	setColorRGB(rgbToSet: string, r: number, g: number, b: number) {
+		this.colorCode = rgbToSet;
+		this.R = r;
+		this.G = g;
+		this.B = b;
+		this.triggerRGB();
+	}
+
+	setColorHSL(hslToSet: string, h: number, s: number, l: number) {
+		this.colorCode = hslToSet;
+		this.H = h;
+		this.L = l;
+		this.S = s;
+		this.triggerHLS();
+	}
+
+
+	getRGB() {
+		const rgb = this.rgbtxt.split(";");
+		this.R = Number(rgb[0]);
+		this.G = Number(rgb[1]);
+		this.B = Number(rgb[2]);
+		this.triggerRGB();
+	}
+
+	getXYZ() {
+		const xyz = this.xyztxt.split(";");
+		this.X = Number(xyz[0]);
+		this.Y = Number(xyz[1]);
+		this.Z = Number(xyz[2]);
+		this.triggerXYZ();
+	}
+
+	getHLS() {
+		const hls = this.hlstxt.split(";");
+		this.H = Number(hls[0]);
+		this.L = Number(hls[1]);
+		this.S = Number(hls[2]);
+		this.triggerHLS();
+	}
 
 
 	RGBtoXYZ() {
@@ -193,15 +238,17 @@ export class HomePage {
 		this.S = Math.round(s * 100);
 	}
 
-	setColor(color: string) {
-		this.colorCode = color;
-	}
-
 	async presentToast() {
+		if (!this.toastIsShown) {
+			this.toastIsShown = true;
 			const toast = await this.toastController.create({
 				message: 'Conversion is out of range.',
 				duration: 1000
 			});
 			toast.present();
+			setTimeout(() => {
+				this.toastIsShown = false;
+			}, 1500);
+		}
 	}
 }
