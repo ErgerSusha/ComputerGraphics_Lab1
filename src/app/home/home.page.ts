@@ -145,7 +145,7 @@ export class HomePage {
 		this.X = (0.412453 * Rn + 0.357580 * Gn + 0.180423 * Bn) / 100;
 		this.Y = (0.212671 * Rn + 0.715160 * Gn + 0.072169 * Bn) / 100;
 		this.Z = (0.019334 * Rn + 0.119193 * Gn + 0.950227 * Bn) / 100;
-		if (this.X > 0.9642 || this.Y > 1 || this.Z > 0.8252) {
+		if (this.X > 0.9504 || this.Y > 1 || this.Z > 1.0883) {
 			this.presentToast();
 		}
 	}
